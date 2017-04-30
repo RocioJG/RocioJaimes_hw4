@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#define PI 3.1415
-
 FILE *output;
 
 int main()
@@ -15,10 +13,12 @@ int filas=100;
 int columnas=100;
 double delta_t=0.25*delta_x*delta_x/v;
 double alpha= v*delta_t/delta_x;
+char nombre[2]= "00";
 
 double Ti[filas][columnas];
 double Tf[filas][columnas];
 double Tp[filas][columnas];
+double T_mean[filas][columnas];
 /*creo matriz inicial*/
 for (int i=1; i>filas; i++)
 {	for (int j=1; j>columnas; j++)
@@ -39,7 +39,25 @@ for (int i=1; i>filas; i++)
 	}
 }
 
-
+/*Imprimir archivo */
+void print(FILE *M, float Tf[filas][columnas])
+{	
+	for (int fil=0; fil<i; fil++)
+	{
+		for( int col=0; col<j; col++)
+		{
+			fprint(M, "%f\t", Tf[i],[j])
+		}	
+	}
+}
+/*Guardar archivo de texto*/
+void saveT (float Tf[i][j], char nombre[2])
+{
+	FILE * Matrix;
+	Matrix= fopen(nombre, 'w');
+	print (Matrix, Tf);
+	fclose(Matrix)
+}
 /*resulevo. Itero en timepo, luego en filas y luego en columnas*/
 double difusion(int frontera; int caso, double Tf[filas][columnas])
 {
@@ -59,6 +77,8 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 			                        Tf[0][:]=50.0;
 						Tmean=Tf[:][:]/10000;
 						if k==0
+						nombre=11;
+						mn=mn_11;
 							
                 	    		else
 			                        for f in range(45,55)
@@ -71,6 +91,8 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 					                        Tf[99][:]=50.0;
 		                			        Tf[0][:]=50.0;
 								Tmean=Tf[:][:]/10000;
+								nombre=12;
+								mn=mn_12;
 							}
 						}
 				else if (frontera== 2)
@@ -80,6 +102,8 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 						Tf[99][:]=Tf[98][:];
 						Tf[0][:]=Tf[1][:];
 						Tmean=Tf[:][:]/10000;
+						nombre=21;
+						mn=mn_21;
 					else 
 				        	for f in range(45,55)
 						{
@@ -91,6 +115,8 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 								Tf[99][:]=Tf[98][:];
 								Tf[0][:]=Tf[1][:];
 								Tmean=Tf[:][:]/10000;
+								nombre=22;
+								mn=mn_22;
 							}
 						}
 				else
@@ -100,6 +126,8 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 						Tf[99,:]==Tf[0, :];
 						Tf[0, :]==Tf[98,0];
 						Tmean=Tf[:][:]/10000;
+						nombre=31;
+						mn=mn_31;
 					else
 					        for f in range(45,55)
 						{
@@ -111,8 +139,12 @@ double difusion(int frontera; int caso, double Tf[filas][columnas])
 				        		        Tf[99][:]==Tf[0][:];
 				        		        Tf[0][:]==Tf[98][0];
 								Tmean=Tf[:][:]/10000; 
+								nombre=32;
+								mn=mn_32;
 							}    
-						}                         	
+						}   
+			guarda_tf= printFile(Tf[i][j], nombre);
+			guarda_tm= printFile(Tmean[i][j],mn)                      	
 			}
 		}
 	}
@@ -130,4 +162,5 @@ double caso_2_abiertas= difusion(2, 2);
 /*Condiciones abiertas*/
 double caso_1_periodicas= difusion(3, 1);
 double caso_2_periodicas= difusion(3, 2);
+
 }
